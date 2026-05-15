@@ -1,47 +1,32 @@
-package cibertec.pe.entity;
+package cibertec.pe.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
 
-@Entity
-@Table(name = "employees")
-public class Employee {
+public class EmployeeRequest {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "first_name", nullable = false, length = 50)
+    @NotBlank(message = "First name is required")
+    @Size(max = 50, message = "First name must not exceed 50 characters")
     private String firstName;
 
-    @Column(name = "last_name", nullable = false, length = 50)
+    @NotBlank(message = "Last name is required")
+    @Size(max = 50, message = "Last name must not exceed 50 characters")
     private String lastName;
 
-    @Column(nullable = false, unique = true)
+    @NotBlank(message = "Email is required")
+    @Email(message = "Email must be valid")
     private String email;
 
-    @Column(length = 15)
+    @Size(max = 15, message = "Phone must not exceed 15 characters")
     private String phone;
 
+    @PositiveOrZero(message = "Salary must be zero or positive")
     private Double salary;
 
-    @Column(length = 50)
+    @Size(max = 50, message = "Department must not exceed 50 characters")
     private String department;
-
-    public Employee() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getFirstName() {
         return firstName;
